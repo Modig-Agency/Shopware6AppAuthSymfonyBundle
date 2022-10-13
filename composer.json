@@ -1,0 +1,21 @@
+{
+  "name": "modig/shopware-6-app-auth-bundle",
+  "description": "Shopware 6 app authentication bundle",
+  "type": "symfony-bundle",
+  "require": {
+    "php": ">=7.4",
+    "symfony/framework-bundle": "^5.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Modig\\ShopwareAppAuthenticationBundle\\": "src/"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Claudiu Stoica",
+      "email": "c.stoica@modigagency.com"
+    }
+  ]
+}
