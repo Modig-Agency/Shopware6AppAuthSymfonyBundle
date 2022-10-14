@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="modig.shopware_app_authentication_bundle.validator.signature_validator" class="Modig\ShopwareAppAuthenticationBundle\Validator\SignatureValidator"/>
+        <service id="Modig\ShopwareAppAuthenticationBundle\Validator\SignatureValidator" alias="modig.shopware_app_authentication_bundle.validator.signature_validator"/>
+
+        <service id="modig.shopware_app_authentication_bundle.validator.shop_request_validator" class="Modig\ShopwareAppAuthenticationBundle\Validator\ShopRequestValidator">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="modig.shopware_app_authentication_bundle.validator.signature_validator"/>
+            <argument key="$shopEntityClass">ShopEntityClass</argument>
+        </service>
+        <service id="Modig\ShopwareAppAuthenticationBundle\Validator\ShopRequestValidator" alias="modig.shopware_app_authentication_bundle.validator.shop_request_validator"/>
+
+        <service id="modig.shopware_app_authentication_bundle.app_auth_controller" class="Modig\ShopwareAppAuthenticationBundle\Controller\AppAuthenticationController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="modig.shopware_app_authentication_bundle.validator.signature_validator"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="modig.shopware_app_authentication_bundle.validator.shop_request_validator"/>
+            <argument key="$shopEntityClass">ShopEntityClass</argument>
+        </service>
+
+    </services>
+</container>

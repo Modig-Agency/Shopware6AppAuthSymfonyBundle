@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.index" controller="modig.shopware_app_authentication_bundle.app_auth_controller::index" path="/" >
+    </route>
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.registration" controller="modig.shopware_app_authentication_bundle.app_auth_controller::registration" path="/registration" >
+    </route>
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.confirm" controller="modig.shopware_app_authentication_bundle.app_auth_controller::confirm" path="/confirm" >
+    </route>
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.activated" controller="modig.shopware_app_authentication_bundle.app_auth_controller::activate" path="/activated" >
+    </route>
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.deactivated" controller="modig.shopware_app_authentication_bundle.app_auth_controller::deactivate" path="/deactivated" >
+    </route>
+
+    <route id="modig.shopware_app_authentication_bundle.app_auth_controller.deleted" controller="modig.shopware_app_authentication_bundle.app_auth_controller::delete" path="/deleted" >
+    </route>
+</routes>
