@@ -32,8 +32,8 @@ class SignatureValidator
             // Shopware 6.4.5 and higher
             $queryString = sprintf(
                 'shop-id=%s&shop-url=%s&timestamp=%s&sw-version=%s&sw-context-language=%s&sw-user-language=%s',
-                $shop->getExternalId(),
-                $shop->getUrl(),
+                $data['shop-id'],
+                $data['shop-url'],
                 $data['timestamp'],
                 $data['sw-version'],
                 $data['sw-context-language'],
@@ -43,8 +43,8 @@ class SignatureValidator
             // Shopware lower than 6.4.5
             $queryString = sprintf(
                 'shop-id=%s&shop-url=%s&timestamp=%s&sw-version=%s',
-                $shop->getExternalId(),
-                $shop->getUrl(),
+                $data['shop-id'],
+                $data['shop-url'],
                 $data['timestamp'],
                 $data['sw-version']
             );

@@ -38,11 +38,7 @@ class AppAuthenticationController extends AbstractController
 
     public function index(Request $request): Response
     {
-        $x = new $this->shopEntityClass();
-        dump($x);
-        dump($this->getParameter('app.url'));
-        dump( $this->router->generate('modig.shopware_app_authentication_bundle.app_auth_controller.confirm', [], UrlGeneratorInterface::ABSOLUTE_PATH));
-        die;
+        die('Welcome');
     }
 
     public function registration(Request $request): Response
@@ -101,7 +97,6 @@ class AppAuthenticationController extends AbstractController
         }
 
         $shop->setApiKey($data['apiKey']);
-        $shop->setSecretKey($data['secretKey']);
 
         $this->entityManager->persist($shop);
         $this->entityManager->flush();
