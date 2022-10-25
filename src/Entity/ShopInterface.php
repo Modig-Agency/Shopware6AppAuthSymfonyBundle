@@ -34,4 +34,8 @@ interface ShopInterface
     public function getStatus(): ?string;
 
     public function setStatus(string $status): self;
+
+    public function setShopSecret(string $shopSecret): self;
+
+    public function getShopSecret(): ?string;
 }

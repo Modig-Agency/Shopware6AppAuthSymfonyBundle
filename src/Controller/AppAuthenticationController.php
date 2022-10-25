@@ -67,7 +67,7 @@ class AppAuthenticationController extends AbstractController
 
         $shop->setExternalId($request->get('shop-id'));
         $shop->setUrl($request->get('shop-url'));
-        $shop->setSecretKey(Uuid::v4()->toRfc4122());
+        $shop->setShopSecret(Uuid::v4()->toRfc4122());
         $shop->setAppSecret($appSecret);
         $shop->setStatus(ShopInterface::STATUS_INSTALLED);
 
@@ -76,7 +76,7 @@ class AppAuthenticationController extends AbstractController
 
         return new JsonResponse([
             'proof' => $proof,
-            'secret' => $shop->getSecretKey(),
+            'secret' => $shop->getShopSecret(),
             'confirmation_url' => $this->getParameter('app.url') . $this->router->generate('modig.shopware_app_authentication_bundle.app_auth_controller.confirm', [], UrlGeneratorInterface::ABSOLUTE_PATH),
         ]);
     }
@@ -97,6 +97,7 @@ class AppAuthenticationController extends AbstractController
         }
 
         $shop->setApiKey($data['apiKey']);
+        $shop->setSecretKey($data['secretKey']);
 
         $this->entityManager->persist($shop);
         $this->entityManager->flush();

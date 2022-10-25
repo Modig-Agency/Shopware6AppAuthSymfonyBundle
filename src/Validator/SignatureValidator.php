@@ -19,7 +19,7 @@ class SignatureValidator
     public function isValidConfirmationSignature(Request $request, ShopInterface $shop): bool
     {
         return hash_equals(
-            \hash_hmac('sha256', $request->getContent(), $shop->getSecretKey()),
+            \hash_hmac('sha256', $request->getContent(), $shop->getShopSecret()),
             $request->headers->get('shopware-shop-signature')
         );
     }
@@ -50,7 +50,7 @@ class SignatureValidator
             );
         }
 
-        $hmac = \hash_hmac('sha256', htmlspecialchars_decode($queryString), $shop->getSecretKey());
+        $hmac = \hash_hmac('sha256', htmlspecialchars_decode($queryString), $shop->getShopSecret());
 
         return hash_equals($hmac, $data['shopware-shop-signature']);
     }
