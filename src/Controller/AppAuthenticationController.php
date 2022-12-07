@@ -2,6 +2,8 @@
 
 namespace Modig\ShopwareAppAuthenticationBundle\Controller;
 
+use Modig\ShopwareAppAuthenticationBundle\Event\AppActivationEvent;
+use Modig\ShopwareAppAuthenticationBundle\Event\AppAuthenticationEvents;
 use Modig\ShopwareAppAuthenticationBundle\Validator\ShopRequestValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Modig\ShopwareAppAuthenticationBundle\Entity\ShopInterface;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AppAuthenticationController extends AbstractController
 {
@@ -105,7 +108,8 @@ class AppAuthenticationController extends AbstractController
         return new Response();
     }
 
-    public function activate(Request $request): Response
+    public function activate(Request $request,
+                             EventDispatcherInterface $eventDispatcher = null): Response
     {
         if (!$this->shopRequestValidator->isValidAppLifecycleEventRequest($request)) {
             return new Response($this->shopRequestValidator->getError(), 400);
@@ -115,6 +119,11 @@ class AppAuthenticationController extends AbstractController
         $shop->setStatus(ShopInterface::STATUS_ACTIVE);
         $this->entityManager->persist($shop);
         $this->entityManager->flush();
+
+        if ($eventDispatcher) {
+            $event = new AppActivationEvent($shop->getId());
+            $eventDispatcher->dispatch($event);
+        }
 
         return new Response();
     }
