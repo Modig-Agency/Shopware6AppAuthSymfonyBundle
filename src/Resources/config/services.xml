@@ -20,6 +20,7 @@
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
             <tag name="container.service_subscriber"/>
+            <tag name="controller.service_arguments"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="modig.shopware_app_authentication_bundle.validator.signature_validator"/>
             <argument type="service" id="router"/>
